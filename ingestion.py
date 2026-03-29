@@ -1,4 +1,4 @@
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from sentence_transformers import SentenceTransformer
 import chromadb
 import json
@@ -41,6 +41,4 @@ def load_precomputed_alice(chunks_path: str, embeddings_path: str) -> chromadb.C
     collection.add(
         documents=chunks,
         embeddings=embeddings_as_lists,
-        ids=[str(i) for i in range(len(chunks))],
-    )
-    return collection
+        ids=[str(i) for i in range(
