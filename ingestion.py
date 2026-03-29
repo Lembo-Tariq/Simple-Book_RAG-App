@@ -15,7 +15,6 @@ def ingest_text(raw_text: str) -> chromadb.Collection:
         separators=["\n\n", "\n", "!", "?", ".", " ", ""],
     )
     chunks = splitter.split_text(raw_text)
-
     embeddings = EMBEDDING_MODEL.encode(chunks, show_progress_bar=True)
     embeddings_as_lists = embeddings.tolist()
 
@@ -41,4 +40,6 @@ def load_precomputed_alice(chunks_path: str, embeddings_path: str) -> chromadb.C
     collection.add(
         documents=chunks,
         embeddings=embeddings_as_lists,
-        ids=[str(i) for i in range(
+        ids=[str(i) for i in range(len(chunks))],
+    )
+    return collection
